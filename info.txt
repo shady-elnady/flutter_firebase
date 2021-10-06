@@ -1,0 +1,19 @@
+Variant: debugAndroidTest
+Config: debug
+Store: /Users/shadyelnady/.android/debug.keystore
+Alias: AndroidDebugKey
+MD5: 51:2E:2B:21:DD:8E:C7:34:B7:90:04:62:C2:DF:BD:B5
+SHA1: C4:1A:9F:BD:CC:44:6E:99:0B:4D:5B:3D:58:FC:ED:5F:BF:8F:91:65
+SHA-256: DE:F6:C1:B5:32:8F:87:6B:CA:74:74:BF:84:24:5D:15:21:2D:96:08:0C:ED:21:F6:A0:3F:E6:08:50:A2:CE:EA
+Valid until: Sunday, September 3, 2051
+
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBCqD7GheeIIzEGOcnIwI5lqu9OiGFgppg",
+  authDomain: "flutter-firebase-6dbf7.firebaseapp.com",
+  projectId: "flutter-firebase-6dbf7",
+  storageBucket: "flutter-firebase-6dbf7.appspot.com",
+  messagingSenderId: "65527408514",
+  appId: "1:65527408514:web:17080c3451dd6282cd919b",
+  measurementId: "G-DWY8Z5SFH3"
+}
