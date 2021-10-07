@@ -59,6 +59,22 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+            //
+            SizedBox(
+              width: 200,
+              child: ElevatedButton(
+                onPressed: () {
+                  AuthController().signInWithGoogle();
+                },
+                child: Row(
+                  children: const <Widget>[
+                    Icon(Icons.login),
+                    Text("Google Sign In Email"),
+                  ],
+                ),
+              ),
+            ),
+            //
             SizedBox(
               width: 200,
               child: ElevatedButton(

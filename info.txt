@@ -17,3 +17,7 @@ const firebaseConfig = {
   appId: "1:65527408514:web:17080c3451dd6282cd919b",
   measurementId: "G-DWY8Z5SFH3"
 }
+
+
+Google Sign In
+Project public-facing name : project-65527408514

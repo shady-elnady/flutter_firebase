@@ -1,9 +1,16 @@
 // ignore_for_file: avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    scopes: [
+      'email',
+      // 'https://www.googleapis.com/auth/contacts.readonly',
+    ],
+  );
   User? _user;
   User? get user => _user;
   UserCredential? _userCredential;
@@ -19,28 +26,30 @@ class AuthController {
         _user = user;
         print(
             'authStateChanges : User is signed in!\n UserCredential : $_userCredential');
+      } else if (user != null && user.emailVerified) {
+        print("authStateChanges : User Sign In And Email Verified \n $user");
       } else {
         print('authStateChanges : User is currently signed out! ');
       }
     });
     //
-    _auth.idTokenChanges().listen((User? user) {
-      if (user != null && !user.emailVerified) {
-        // user.sendEmailVerification();
-        print('idTokenChanges :User is signed in!\n User : $user');
-      } else {
-        print('idTokenChanges : User is currently signed out! ');
-      }
-    });
-    //
-    _auth.userChanges().listen((User? user) {
-      if (user != null && !user.emailVerified) {
-        // user.sendEmailVerification();
-        print('userChanges : User is signed in!');
-      } else {
-        print('userChanges : User is currently signed out!');
-      }
-    });
+    // _auth.idTokenChanges().listen((User? user) {
+    //   if (user != null && !user.emailVerified) {
+    //     // user.sendEmailVerification();
+    //     print('idTokenChanges :User is signed in!\n User : $user');
+    //   } else {
+    //     print('idTokenChanges : User is currently signed out! ');
+    //   }
+    // });
+    // //
+    // _auth.userChanges().listen((User? user) {
+    //   if (user != null && !user.emailVerified) {
+    //     // user.sendEmailVerification();
+    //     print('userChanges : User is signed in!');
+    //   } else {
+    //     print('userChanges : User is currently signed out!');
+    //   }
+    // });
   }
 
   void signInAnonymous() async {
@@ -101,8 +110,28 @@ class AuthController {
     }
   }
 
+  // Google_Sign_In
+  Future<void> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    _userCredential = await _auth.signInWithCredential(credential);
+  }
+
   void signOut() async {
     tryCatch(FirebaseAuth.instance.signOut());
+    await _googleSignIn.signOut();
   }
 
   void deleteUser() {
@@ -110,6 +139,7 @@ class AuthController {
   }
 }
 
+//TryCatch
 Future<void> tryCatch(Future<void> fun) async {
   try {
     await fun;
