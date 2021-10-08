@@ -69,7 +69,22 @@ class HomePage extends StatelessWidget {
                 child: Row(
                   children: const <Widget>[
                     Icon(Icons.login),
-                    Text("Google Sign In Email"),
+                    Text("Google Sign In"),
+                  ],
+                ),
+              ),
+            ),
+            //
+            SizedBox(
+              width: 200,
+              child: ElevatedButton(
+                onPressed: () {
+                  AuthController().signInWithFacebook();
+                },
+                child: Row(
+                  children: const <Widget>[
+                    Icon(Icons.login),
+                    Text("FaceBook Sign In"),
                   ],
                 ),
               ),

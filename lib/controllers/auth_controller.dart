@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
-
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController {
@@ -129,11 +129,28 @@ class AuthController {
     _userCredential = await _auth.signInWithCredential(credential);
   }
 
+  // FaceBook
+
+  Future<void> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    // Once signed in, return the UserCredential
+    _userCredential =
+        _auth.signInWithCredential(facebookAuthCredential) as UserCredential;
+  }
+
+  // Sign Out
   void signOut() async {
     tryCatch(FirebaseAuth.instance.signOut());
     await _googleSignIn.signOut();
   }
 
+  // Delete User
   void deleteUser() {
     tryCatch(_auth.currentUser!.delete());
   }

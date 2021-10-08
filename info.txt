@@ -21,3 +21,11 @@ const firebaseConfig = {
 
 Google Sign In
 Project public-facing name : project-65527408514
+
+
+FaceBook
+App ID : 312377217363380
+App Secret : 3c0b547d922710c5987288f1ca383a18
+Display Name : flutter_firebase
+url Redirect : https://flutter-firebase-6dbf7.firebaseapp.com/__/auth/handler
+Client Token : ba5a881874be7ba6077c75c85c00f7f6
